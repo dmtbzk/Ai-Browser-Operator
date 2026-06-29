@@ -51,5 +51,21 @@ BROWSER_TOOL_DEFINITIONS = [
             "required": [],
             "additionalProperties": False
         }
+    },
+    {
+        "type": "function",
+        "name": "open_search_result",
+        "description": "Opens a search result from the latest browser search results by its 1-based index.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "index": {
+                    "type": "integer",
+                    "description": "The search result number to open. Use 1 for the first result, 2 for the second result."
+                }
+            },
+            "required": ["index"],
+            "additionalProperties": False
+        }
     }
 ]

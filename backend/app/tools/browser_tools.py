@@ -13,3 +13,19 @@ def close_browser_session():
 
 def get_current_browser_state():
     return get_browser_state()
+
+def open_search_result(index: int):
+
+    state = get_browser_state()
+    results = state.get("last_search_results", [])
+    
+    if not results:
+        return {"error": "No search results available"}
+    if index < 1 or index > len(results):
+        return {"error": "Invalid result index"}
+    
+    selected_result = results[index - 1]
+
+    url = selected_result["url"]
+
+    return open_page(url)
