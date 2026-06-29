@@ -9,9 +9,11 @@ client = OpenAI()
 def create_respond(user_message: str):
     response = client.responses.create(
         model="gpt-4o-mini",
-        messages=user_message,
+        input=user_message,
         tools=TOOLS
     )
+
+    return response
 
 def create_final_response(response_id: str, tool_outputs: list):
     response = client.responses.create(
@@ -19,3 +21,4 @@ def create_final_response(response_id: str, tool_outputs: list):
         previous_response_id=response_id,
         input=tool_outputs,
     )
+    return response

@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api.schemas import chatResponse, chatRequest
+from app.api.schemas import ChatResponse, ChatRequest
 from app.agent.orchestrator import run_agent
 app = FastAPI()
 
@@ -11,7 +11,7 @@ def read_root():
 def health():
     return {"status": "ok"}
 
-@app.post("/chat")
-def chat(request: chatRequest):
+@app.post("/chat", response_model=ChatResponse)
+def chat(request: ChatRequest):
     answer = run_agent(request.message)
     return ChatResponse(answer=answer)

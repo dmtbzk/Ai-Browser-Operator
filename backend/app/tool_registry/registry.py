@@ -1,3 +1,3 @@
 from app.tool_registry.browser_tool_definitions import BROWSER_TOOL_DEFINITIONS
 
-TOOLS = BROWSER_TOOLS
+TOOLS = BROWSER_TOOL_DEFINITIONS
