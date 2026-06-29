@@ -49,3 +49,19 @@ def search_web(query: str):
         "results": search_results
     }
 
+def extract_links():
+    page = get_page()
+    links = page.locator("a").all()
+    extracted_links = []
+    for link in links[:30]:
+        text = link.inner_text()
+        href = link.get_attribute("href")
+        if href:
+            extracted_links.append({
+                "text": text,
+                "href": href
+            })
+    return {
+        "current_url": page.url,
+        "links": extracted_links
+    }

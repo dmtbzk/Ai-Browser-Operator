@@ -1,4 +1,4 @@
-from app.browser.controller import open_page, search_web
+from app.browser.controller import open_page, search_web, extract_links
 from app.browser.manager import close_browser, get_browser_state
 
 def open_browser_page(url: str):
@@ -30,19 +30,5 @@ def open_search_result(index: int):
 
     return open_page(url)
 
-def extract_links():
-    page = get_page()
-    links = page.locator("a").all()
-    extracted_links = []
-    for link in links[:30]:
-        text = link.inner_text()
-        href = link.get_attribute("href")
-        if href:
-            extracted_links.append({
-                "text": text,
-                "href": href
-            })
-    return {
-        "current_url": page.url,
-        "links": extracted_links
-    }
+def extract_page_links():
+    return extract_links()
