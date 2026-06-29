@@ -67,5 +67,16 @@ BROWSER_TOOL_DEFINITIONS = [
             "required": ["index"],
             "additionalProperties": False
         }
+    },
+    {
+        "type": "function",
+        "name": "extract_links",
+        "description": "Extracts up to 30 links from the current page and returns their text and href attributes.",
+        "parameters": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": False
+        }
     }
 ]
