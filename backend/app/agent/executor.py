@@ -31,3 +31,20 @@ def execute_tools(reponse):
                 "output": str(tool_result)
             })
     return tool_outputs
+
+def execute_plan(plan: dict):
+    observations = []
+
+    for step in plan["steps"]:
+        tool_name = step["tool"]
+        arguments = step["arguments"]
+
+        tool_result = run_tool(tool_name, arguments)
+
+        observations.append({
+            "tool": tool_name,
+            "arguments": arguments,
+            "result": tool_result
+        })
+
+    return observations

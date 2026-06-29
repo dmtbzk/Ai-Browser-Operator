@@ -1,14 +1,17 @@
-from app.agent.responder import create_respond, create_final_response
-from app.agent.executor import execute_tools
+from app.agent.planner import create_plan
+from app.agent.executor import execute_plan
+from app.agent.responder import summarize_observations
+
 
 def run_agent(user_message: str) -> str:
-    response = create_respond(user_message)
-    tool_outputs = execute_tools(response)
-    if tool_outputs:
-        final_response = create_final_response(
-            response.id,
-            tool_outputs
-        )
-        return final_response.output_text
+    plan = create_plan(user_message)
+    print("PLAN:", plan)
 
-    return response.output_text
+    observations = execute_plan(plan)
+    print("OBSERVATIONS:", observations)
+
+    return summarize_observations(
+        user_message,
+        plan,
+        observations
+    )

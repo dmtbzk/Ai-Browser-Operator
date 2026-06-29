@@ -22,3 +22,23 @@ def create_final_response(response_id: str, tool_outputs: list):
         input=tool_outputs,
     )
     return response
+
+def summarize_observations(user_message: str, plan: dict, observations: list):
+    prompt = f"""
+    User request:
+    {user_message}
+
+    Plan:
+    {plan}
+
+    Browser observations:
+    {observations}
+
+    Write a helpful final answer for the user.
+    """
+    response = client.responses.create(
+        model="gpt-4o-mini",
+        input=prompt,
+    )
+
+    return response.output_text
