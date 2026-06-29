@@ -14,5 +14,21 @@ BROWSER_TOOL_DEFINITIONS = [
             "required": ["url"],
             "additionalProperties": False
         }
+    },
+    {
+        "type": "function",
+        "name": "search_browser_web",
+        "description": "Search the web for information based on a query.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "query": {
+                    "type": "string",
+                    "description": "The search query to perform"
+                }
+            },
+            "required": ["query"],
+            "additionalProperties": False
+        }
     }
 ]

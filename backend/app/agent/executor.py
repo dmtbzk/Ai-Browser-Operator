@@ -1,8 +1,9 @@
 import json
-from app.tools.browser_tools import open_browser_page
+from app.tools.browser_tools import open_browser_page, search_browser_web
 
 TOOL_FUNCTIONS = {
     "open_browser_page": open_browser_page,
+    "search_browser_web": search_browser_web,
 }
 
 
