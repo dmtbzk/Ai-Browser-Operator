@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from app.api.schemas import chatResponse, chatRequest
-
+from app.agent.orchestrator import run_agent
 app = FastAPI()
 
 @app.get("/")
@@ -13,4 +13,5 @@ def health():
 
 @app.post("/chat")
 def chat(request: chatRequest):
-    return chatResponse(answer=request.message)
+    answer = run_agent(request.message)
+    return ChatResponse(answer=answer)
