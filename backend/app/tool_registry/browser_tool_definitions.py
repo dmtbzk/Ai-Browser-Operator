@@ -40,5 +40,16 @@ BROWSER_TOOL_DEFINITIONS = [
             "properties": {},
             "additionalProperties": False
         }
+    },
+    {
+        "type": "function",
+        "name": "get_current_browser_state",
+        "description": "Returns the current browser state including current URL, page title and last search results.",
+        "parameters": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": False
+        }
     }
 ]

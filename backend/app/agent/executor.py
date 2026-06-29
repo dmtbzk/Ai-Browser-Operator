@@ -1,10 +1,11 @@
 import json
-from app.tools.browser_tools import open_browser_page, search_browser_web, close_browser_session
+from app.tools.browser_tools import open_browser_page, search_browser_web, close_browser_session, get_current_browser_state
 
 TOOL_FUNCTIONS = {
     "open_browser_page": open_browser_page,
     "search_browser_web": search_browser_web,
     "close_browser_session": close_browser_session,
+    "get_current_browser_state": get_current_browser_state,
 }
 
 

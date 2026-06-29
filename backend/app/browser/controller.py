@@ -1,5 +1,4 @@
-from app.browser.manager import get_page
-
+from app.browser.manager import get_page, update_browser_state
 
 def open_page(url: str):
     page = get_page()
@@ -10,6 +9,9 @@ def open_page(url: str):
     current_url = page.url
 
     page_text = page.locator("body").inner_text(timeout=5000)
+
+    update_browser_state("current_url", current_url)
+    update_browser_state("current_title", title)
 
     return {
         "title": title,
@@ -38,7 +40,12 @@ def search_web(query: str):
             "url": result.get_attribute("href")
         })
 
+    update_browser_state("last_search_results", search_results)
+    update_browser_state("current_url", page.url)
+    update_browser_state("current_title", page.title())
+
     return {
         "query": query,
         "results": search_results
     }
+

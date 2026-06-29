@@ -5,6 +5,11 @@ _playwright = None
 _browser = None
 _page = None
 
+_browser_state = {
+    "current_url": None,
+    "current_title": None,
+    "last_search_results": [],
+}
 
 def get_page():
     global _playwright, _browser, _page
@@ -33,3 +38,10 @@ def close_browser():
     _playwright = None
     _browser = None
     _page = None
+
+def update_browser_state(key: str, value):
+    _browser_state[key] = value
+
+
+def get_browser_state():
+    return _browser_state
