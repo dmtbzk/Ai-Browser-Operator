@@ -30,5 +30,15 @@ BROWSER_TOOL_DEFINITIONS = [
             "required": ["query"],
             "additionalProperties": False
         }
+    },
+    {
+        "type": "function",
+        "name": "close_browser_session",
+        "description": "Close the browser and return a status message.",
+        "parameters": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": False
+        }
     }
 ]

@@ -1,19 +1,20 @@
 import json
-from app.tools.browser_tools import open_browser_page, search_browser_web
+from app.tools.browser_tools import open_browser_page, search_browser_web, close_browser_session
 
 TOOL_FUNCTIONS = {
     "open_browser_page": open_browser_page,
     "search_browser_web": search_browser_web,
+    "close_browser_session": close_browser_session,
 }
 
 
-def run_tool(tool_name: str, args: dict):
+def run_tool(tool_name: str, arguments: dict):
+
     if tool_name not in TOOL_FUNCTIONS:
         return {"error": "Tool not found"}
 
     tool_function = TOOL_FUNCTIONS[tool_name]
-    return tool_function(**args)
-
+    return tool_function(**arguments)
 
 def execute_tools(reponse):
     tool_outputs = []
