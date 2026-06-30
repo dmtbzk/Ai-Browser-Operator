@@ -1,22 +1,16 @@
 import json
 from app.tools.browser_tools import open_browser_page, search_browser_web, close_browser_session, get_current_browser_state, open_search_result, extract_page_links
+from app.tool_registry.registry import get_tool_function
 
-TOOL_FUNCTIONS = {
-    "open_browser_page": open_browser_page,
-    "search_browser_web": search_browser_web,
-    "close_browser_session": close_browser_session,
-    "get_current_browser_state": get_current_browser_state,
-    "open_search_result": open_search_result,
-    "extract_page_links": extract_page_links,
-}
+
 
 
 def run_tool(tool_name: str, arguments: dict):
+    tool_function = get_tool_function(tool_name)
 
-    if tool_name not in TOOL_FUNCTIONS:
-        return {"error": "Tool not found"}
-
-    tool_function = TOOL_FUNCTIONS[tool_name]
+    if tool_function is None:
+        return {"error": f"Tool not found: {tool_name}"}
+        
     return tool_function(**arguments)
 
 def execute_tools(reponse):
