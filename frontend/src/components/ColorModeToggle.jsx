@@ -8,7 +8,7 @@ export function ColorModeToggle() {
 
   return (
     <IconButton
-      aria-label="Tema değiştir"
+      aria-label="Toggle theme"
       variant="ghost"
       size="sm"
       onClick={() => setTheme(isDark ? "light" : "dark")}

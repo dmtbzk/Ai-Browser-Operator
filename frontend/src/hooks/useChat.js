@@ -50,7 +50,7 @@ export function useChat() {
     } catch (err) {
       dispatch({
         type: "ERROR",
-        error: err?.response?.data?.detail ?? err.message ?? "Beklenmeyen bir hata oluştu.",
+        error: err?.response?.data?.detail ?? err.message ?? "An unexpected error occurred.",
       });
     }
   }, []);

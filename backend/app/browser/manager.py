@@ -18,7 +18,7 @@ def get_page():
         _playwright = sync_playwright().start()
 
     if _browser is None:
-        _browser = _playwright.chromium.launch(headless=False)
+        _browser = _playwright.chromium.launch(headless=True)
 
     if _page is None:
         _page = _browser.new_page()

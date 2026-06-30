@@ -56,7 +56,7 @@ export function Sidebar({ onClear }) {
           <HStack gap="2" justify="center">
             <Icon as={LuPlus} boxSize="4" color="gray.500" />
             <Text fontSize="sm" color="gray.500">
-              Yeni Sohbet
+              New Chat
             </Text>
           </HStack>
         </Box>
@@ -73,7 +73,7 @@ export function Sidebar({ onClear }) {
           <HStack gap="1">
             <ColorModeToggle />
             <IconButton
-              aria-label="Sohbeti temizle"
+              aria-label="Clear chat"
               variant="ghost"
               size="sm"
               colorPalette="red"
