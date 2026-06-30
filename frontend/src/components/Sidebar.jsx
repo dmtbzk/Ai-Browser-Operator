@@ -1,5 +1,6 @@
 import { VStack, Text, Box, Icon, HStack, IconButton } from "@chakra-ui/react";
 import { LuGlobe, LuPlus, LuTrash2 } from "react-icons/lu";
+import { ColorModeToggle } from "./ColorModeToggle";
 
 export function Sidebar({ onClear }) {
   return (
@@ -69,15 +70,18 @@ export function Sidebar({ onClear }) {
           <Text fontSize="xs" color="gray.400">
             v0.1.0
           </Text>
-          <IconButton
-            aria-label="Sohbeti temizle"
-            variant="ghost"
-            size="xs"
-            colorPalette="red"
-            onClick={onClear}
-          >
-            <LuTrash2 />
-          </IconButton>
+          <HStack gap="1">
+            <ColorModeToggle />
+            <IconButton
+              aria-label="Sohbeti temizle"
+              variant="ghost"
+              size="sm"
+              colorPalette="red"
+              onClick={onClear}
+            >
+              <LuTrash2 />
+            </IconButton>
+          </HStack>
         </HStack>
       </Box>
     </Box>

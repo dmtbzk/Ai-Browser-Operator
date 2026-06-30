@@ -38,7 +38,7 @@ export function ChatInput({ onSubmit, disabled }) {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Bir görev yazın… (Shift+Enter ile satır ekleyin)"
+          placeholder="Type a task… (Shift+Enter for new line)"
           resize="none"
           rows={1}
           minH="10"
@@ -53,7 +53,7 @@ export function ChatInput({ onSubmit, disabled }) {
           css={{ fieldSizing: "content" }}
         />
         <IconButton
-          aria-label="Gönder"
+          aria-label="Send"
           onClick={handleSubmit}
           disabled={!value.trim() || disabled}
           colorPalette="blue"

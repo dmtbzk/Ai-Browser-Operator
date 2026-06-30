@@ -2,10 +2,10 @@ import { VStack, HStack, Icon, Text, SimpleGrid, Box } from "@chakra-ui/react";
 import { LuGlobe, LuSearch, LuMousePointerClick, LuBrain } from "react-icons/lu";
 
 const EXAMPLES = [
-  { icon: LuSearch, text: "Google'da 'Anthropic' ara ve ilk sonucu aç" },
-  { icon: LuGlobe, text: "Hava durumu sitesine gidip İstanbul hava durumunu öğren" },
-  { icon: LuMousePointerClick, text: "Wikipedia'da 'yapay zeka' sayfasını bul ve özetle" },
-  { icon: LuBrain, text: "YouTube'da Python tutorial videosu ara" },
+  { icon: LuSearch, text: "Search Google for 'Anthropic' and open the first result" },
+  { icon: LuGlobe, text: "Go to a weather site and check the forecast for New York" },
+  { icon: LuMousePointerClick, text: "Find the Wikipedia page for 'artificial intelligence' and summarize it" },
+  { icon: LuBrain, text: "Search YouTube for a Python tutorial video" },
 ];
 
 export function EmptyState({ onExample }) {
@@ -27,7 +27,7 @@ export function EmptyState({ onExample }) {
           AI Browser Operator
         </Text>
         <Text fontSize="sm" color="gray.500" maxW="sm">
-          Tarayıcıyı sizin adınıza kontrol eden yapay zeka ajanınız. Aşağıdan bir örnek seçin ya da kendi görevinizi yazın.
+          Your AI agent that controls the browser on your behalf. Pick an example below or type your own task.
         </Text>
       </VStack>
 
