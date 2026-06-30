@@ -64,4 +64,24 @@ def create_plan(user_message: str):
         input=prompt,
     )
 
-    return json.loads(response.output_text)
+    planner_text = response.output_text
+
+    print("PLANNER RAW OUTPUT:", planner_text)
+
+    try:
+
+        plan = json.loads(planner_text)
+
+    except json.JSONDecodeError:
+
+        print("Planner returned invalid JSON")
+
+        plan = {
+
+            "goal": user_message,
+
+            "steps": []
+
+        }
+
+    return plan
