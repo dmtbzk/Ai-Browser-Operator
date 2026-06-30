@@ -23,22 +23,31 @@ def open_page(url: str):
 def search_web(query: str):
     page = get_page()
 
-    page.goto("https://duckduckgo.com")
-
-    page.locator("input[name='q']").fill(query)
-    page.keyboard.press("Enter")
-
-    page.wait_for_load_state("networkidle")
-
-    results = page.locator("[data-testid='result-title-a']").all()
+    # DuckDuckGo HTML version — no JS, stable selectors, no bot protection
+    import urllib.parse
+    encoded = urllib.parse.quote_plus(query)
+    page.goto(f"https://html.duckduckgo.com/html/?q={encoded}", wait_until="domcontentloaded")
 
     search_results = []
 
-    for result in results[:5]:
-        search_results.append({
-            "title": result.inner_text(),
-            "url": result.get_attribute("href")
-        })
+    result_links = page.locator("a.result__a")
+    count = result_links.count()
+
+    for i in range(min(count, 8)):
+        link = result_links.nth(i)
+        title = link.inner_text().strip()
+        href = link.get_attribute("href") or ""
+
+        # DDG HTML wraps real URLs in redirect — extract the actual URL
+        if "uddg=" in href:
+            import urllib.parse as up
+            qs = up.parse_qs(up.urlparse(href).query)
+            real_url = qs.get("uddg", [href])[0]
+        else:
+            real_url = href
+
+        if title and real_url and real_url.startswith("http"):
+            search_results.append({"title": title, "url": real_url})
 
     update_browser_state("last_search_results", search_results)
     update_browser_state("current_url", page.url)
