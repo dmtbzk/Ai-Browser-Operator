@@ -24,13 +24,103 @@ Unlike traditional browser automation scripts, this project is designed around a
 
 ## Architecture
 
-text                 User                   │                   ▼         ┌─────────────────┐         │     Planner     │         │  (OpenAI GPT)   │         └─────────────────┘                   │                   ▼         ┌─────────────────┐         │    Validator    │         └─────────────────┘                   │                   ▼         ┌─────────────────┐         │    Executor     │         └─────────────────┘                   │                   ▼         ┌─────────────────┐         │ Browser Tools   │         └─────────────────┘                   │                   ▼         ┌─────────────────┐         │   Playwright    │         └─────────────────┘                   │                   ▼            Browser State                   │                   ▼         ┌─────────────────┐         │   Summarizer    │         │  (OpenAI GPT)   │         └─────────────────┘                   │                   ▼                Response 
+```
+                User
+                  │
+                  ▼
+    ┌─────────────────┐
+    │     Planner     │
+    │  (OpenAI GPT)   │
+    └─────────────────┘
+                  │
+                  ▼
+    ┌─────────────────┐
+    │    Validator    │
+    └─────────────────┘
+                  │
+                  ▼
+    ┌─────────────────┐
+    │    Executor     │
+    └─────────────────┘
+                  │
+                  ▼
+    ┌─────────────────┐
+    │  Browser Tools  │
+    └─────────────────┘
+                  │
+                  ▼
+    ┌─────────────────┐
+    │   Playwright    │
+    └─────────────────┘
+                  │
+                  ▼
+           Browser State
+                  │
+                  ▼
+    ┌─────────────────┐
+    │   Summarizer    │
+    │  (OpenAI GPT)   │
+    └─────────────────┘
+                  │
+                  ▼
+              Response
+```
 
 ---
 
 ## Project Structure
 
-text backend/  ├── app/ │   ├── agent/ │   │   ├── planner.py │   │   ├── validator.py │   │   ├── executor.py │   │   ├── orchestrator.py │   │   └── responder.py │   │ │   ├── browser/ │   │   ├── controller.py │   │   └── manager.py │   │ │   ├── prompts/ │   │   └── planner_prompt.py │   │ │   ├── tool_registry/ │   │   └── registry.py │   │ │   └── tools/ │       └── browser_tools.py │ ├── main.py └── requirements.txt 
+```
+backend/
+├── app/
+│   ├── agent/
+│   │   ├── planner.py
+│   │   ├── validator.py
+│   │   ├── executor.py
+│   │   ├── orchestrator.py
+│   │   └── responder.py
+│   │
+│   ├── browser/
+│   │   ├── controller.py
+│   │   └── manager.py
+│   │
+│   ├── prompts/
+│   │   └── planner_prompt.py
+│   │
+│   ├── tool_registry/
+│   │   └── registry.py
+│   │
+│   └── tools/
+│       └── browser_tools.py
+│
+├── main.py
+└── requirements.txt
+
+frontend/
+├── src/
+│   ├── components/
+│   │   ├── ChatInput.jsx
+│   │   ├── ChatWindow.jsx
+│   │   ├── ColorModeToggle.jsx
+│   │   ├── EmptyState.jsx
+│   │   ├── MessageBubble.jsx
+│   │   ├── Sidebar.jsx
+│   │   └── TypingIndicator.jsx
+│   │
+│   ├── hooks/
+│   │   └── useChat.js
+│   │
+│   ├── services/
+│   │   └── api.js
+│   │
+│   ├── theme/
+│   │   └── index.js
+│   │
+│   ├── App.jsx
+│   └── main.jsx
+│
+└── package.json
+```
 
 ---
 
@@ -81,35 +171,30 @@ This makes adding new tools simple and keeps the architecture maintainable.
 
 ## Example Workflow
 
-User:
+**User:** Find React jobs in London
 
-text Find React jobs in London 
+**Planner:** `search_browser_web`
 
-Planner:
+**Executor:** Searches the web via Google
 
-text search_browser_web 
+**Observation:** Collects browser results
 
-Executor:
-
-text Searches the web 
-
-Observation:
-
-text Collects browser results 
-
-Summarizer:
-
-text Produces a clean, user-friendly response 
+**Summarizer:** Produces a clean, user-friendly response with links
 
 ---
 
 ## Tech Stack
 
+**Backend**
 - Python 3.14
-- FastAPI
-- Playwright
+- FastAPI + Uvicorn
+- Playwright (Chromium)
 - OpenAI Responses API
-- Uvicorn
+
+**Frontend**
+- React + Vite
+- Chakra UI v3
+- Axios
 
 ---
 
