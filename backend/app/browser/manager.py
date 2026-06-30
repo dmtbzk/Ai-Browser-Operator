@@ -18,10 +18,24 @@ def get_page():
         _playwright = sync_playwright().start()
 
     if _browser is None:
-        _browser = _playwright.chromium.launch(headless=True)
+        _browser = _playwright.chromium.launch(
+            headless=True,
+            args=["--no-sandbox", "--disable-blink-features=AutomationControlled"],
+        )
 
     if _page is None:
-        _page = _browser.new_page()
+        context = _browser.new_context(
+            user_agent=(
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/124.0.0.0 Safari/537.36"
+            ),
+            viewport={"width": 1280, "height": 800},
+            locale="en-US",
+        )
+        _page = context.new_page()
+        # Hide webdriver flag
+        _page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
     return _page
 

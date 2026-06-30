@@ -21,42 +21,45 @@ def open_page(url: str):
 
 
 def search_web(query: str):
+    import urllib.parse
+    import random
+    import time
+
     page = get_page()
 
-    # DuckDuckGo HTML version — no JS, stable selectors, no bot protection
-    import urllib.parse
     encoded = urllib.parse.quote_plus(query)
-    page.goto(f"https://html.duckduckgo.com/html/?q={encoded}", wait_until="domcontentloaded")
+    page.goto(
+        f"https://www.google.com/search?q={encoded}&hl=en",
+        wait_until="domcontentloaded",
+    )
+
+    # Human-like delay
+    time.sleep(random.uniform(1.5, 2.5))
 
     search_results = []
 
-    result_links = page.locator("a.result__a")
-    count = result_links.count()
+    # Google organic result links sit inside <h3> inside <a>
+    anchors = page.locator("a:has(h3)")
+    count = anchors.count()
 
-    for i in range(min(count, 8)):
-        link = result_links.nth(i)
-        title = link.inner_text().strip()
-        href = link.get_attribute("href") or ""
-
-        # DDG HTML wraps real URLs in redirect — extract the actual URL
-        if "uddg=" in href:
-            import urllib.parse as up
-            qs = up.parse_qs(up.urlparse(href).query)
-            real_url = qs.get("uddg", [href])[0]
-        else:
-            real_url = href
-
-        if title and real_url and real_url.startswith("http"):
-            search_results.append({"title": title, "url": real_url})
+    for i in range(count):
+        a = anchors.nth(i)
+        try:
+            href = a.get_attribute("href") or ""
+            title = a.locator("h3").inner_text(timeout=500).strip()
+            # Skip Google internal / ad links
+            if href.startswith("http") and title and "google.com" not in href:
+                search_results.append({"title": title, "url": href})
+            if len(search_results) >= 8:
+                break
+        except Exception:
+            continue
 
     update_browser_state("last_search_results", search_results)
     update_browser_state("current_url", page.url)
     update_browser_state("current_title", page.title())
 
-    return {
-        "query": query,
-        "results": search_results
-    }
+    return {"query": query, "results": search_results}
 
 def extract_links():
     page = get_page()
